@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView,LogoutView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+        LoginRequiredMixin,
+        UserPassesTestMixin
+        )
 from django.urls import reverse_lazy
 
 
@@ -21,11 +24,25 @@ class BlogDetail(DetailView):
 class BlogCreate(LoginRequiredMixin, CreateView):
     form_class = BlogForm
     template_name="content/blogcreate.html"
-    success_url =  reverse_lazy("home")
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class BlogUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Blog
+    form_class = BlogForm
+    template_name="content/blogcreate.html"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        blog = self.get_object()
+        if self.request.user == blog.author:
+            return True
+        return False
 
 class LogIn(LoginView):
     template_name = "content/login.html"
