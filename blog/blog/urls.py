@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, reverse_lazy
-from content.views import BlogList, BlogDetail, BlogCreate, LogIn,LogOut, BlogUpdate
+from content.views import (
+        BlogList, 
+        BlogDetail, 
+        BlogCreate, 
+        LogIn,
+        LogOut, 
+        BlogUpdate, 
+        BlogDelete
+        )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +31,7 @@ urlpatterns = [
     path('blog/<int:pk>', BlogDetail.as_view(), name="blog_detail"),
     path('blog/create', BlogCreate.as_view(), name="blog_create"),
     path('blog/<int:pk>/update', BlogUpdate.as_view(), name="blog_update"),
+    path('blog/<int:pk>/delete', BlogDelete.as_view(), name="blog_delete"),
     path('blog/login', LogIn.as_view(), name="login"),
-     path('blog/logout', LogOut.as_view(), name="logout")
+    path('blog/logout', LogOut.as_view(), name="logout")
 ]

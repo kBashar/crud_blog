@@ -3,9 +3,6 @@
 		<title></title>
 	</head>
 	<body>
-        {% if request.user.is_authenticated %}
-            <p> user is {{ user.username }} </p>
-        {% endif %}
 		{% block content %}
 		{% endblock %}
 	</body>

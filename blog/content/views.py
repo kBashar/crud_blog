@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import (
+        CreateView,
+        UpdateView,
+        DeleteView
+        )
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import (
         LoginRequiredMixin,
@@ -42,6 +46,16 @@ class BlogUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         blog = self.get_object()
         if self.request.user == blog.author:
             return True
+        return False
+
+class BlogDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Blog
+    success_url = reverse_lazy("home") 
+    
+    def test_func(self):
+        blog = self.get_object()
+        if self.request.user == blog.author:
+             return True
         return False
 
 class LogIn(LoginView):
