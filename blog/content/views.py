@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView,LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 
@@ -17,7 +18,7 @@ class BlogDetail(DetailView):
     model = Blog
     template_name="content/blogdetail.html"
 
-class BlogCreate(CreateView):
+class BlogCreate(LoginRequiredMixin, CreateView):
     model = Blog
     form_class = BlogForm
     template_name="content/blogcreate.html"
@@ -25,7 +26,6 @@ class BlogCreate(CreateView):
 
 class LogIn(LoginView):
     template_name = "content/login.html"
-    success_url = reverse_lazy("home")
     
 class LogOut(LogoutView):
     template_name = "content/base.html"
