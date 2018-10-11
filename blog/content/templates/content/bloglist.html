@@ -1,0 +1,9 @@
+{% extends 'content/base.html' %}
+
+{% block content %}
+	{% for blog in object_list %}
+		<div><span> {{ blog.title }} </span></div>
+		<div> <span class = "author">{{blog.author}}</span></div>
+		<div> <p> {{blog.content}}</p></div>
+        {% endfor %}
+{% endblock %}

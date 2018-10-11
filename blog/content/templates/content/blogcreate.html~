@@ -1,0 +1,7 @@
+{% extends "content/base.html" %}
+
+{% block content %}
+	<form action={% url "blog_create" %} method = POST>
+		{{ from.as_p }}
+	</form>
+{% endblock %}
