@@ -19,10 +19,13 @@ class BlogDetail(DetailView):
     template_name="content/blogdetail.html"
 
 class BlogCreate(LoginRequiredMixin, CreateView):
-    model = Blog
     form_class = BlogForm
     template_name="content/blogcreate.html"
     success_url =  reverse_lazy("home")
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class LogIn(LoginView):
     template_name = "content/login.html"
