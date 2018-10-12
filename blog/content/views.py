@@ -63,4 +63,4 @@ class LogIn(LoginView):
     
 class LogOut(LogoutView):
     template_name = "content/base.html"
-    success_url = reverse_lazy("home")
+    next_page= reverse_lazy("home")
