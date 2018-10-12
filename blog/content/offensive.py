@@ -12,12 +12,12 @@ code to convert the txt file to python list as follows
 import re
 from django.core.exceptions import ValidationError
 
-def check_offensive(data):
+def check_offensive(data, field_name=""):
     word_list = re.split(r'[,.!?\s]+', data)
     offensive_words = [word for word in word_list if word.lower() in off_words]
     if len(offensive_words)>0:
         raise ValidationError(
-            ('Offensive words in content: %(value)s'),
+            ('Offensive words: %(value)s'),
             code='invalid',
             params={'value': ', '.join(offensive_words)},
             )
