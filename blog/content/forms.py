@@ -18,6 +18,6 @@ class BlogForm(ModelForm):
         model = Blog
         fields = ["title", "content"]
         widgets = {
-                "content": Textarea(attrs={'cols': 80, 'rows': 20})
+                "content": Textarea
                 }
 
