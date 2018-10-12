@@ -3,3 +3,4 @@ blog_env/
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
 __pycache__/
+.sqlite3
